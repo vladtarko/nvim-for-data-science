@@ -77,17 +77,17 @@ Use `<C-arrows>` to move between script pane, console pane, file explorer, and o
 
 Get quick help in a pop-up: `K` while cursor is on the name an R function. 
 
-Open the full documentation for a function in its own buffer: `F1` while cursor is on the name an R function.
+Open the full documentation for a function in its own buffer: `F1` while cursor is on the name an R function (works both in Normal and Insert mode).
 
 For functions from packages, the documentation is available only after loading the package.
 
 Show diagnostics for warnings and errors caught by the LSP: `<space>?`
 
-Open the definition of a function in a separate buffer: `gd`
+Open the definition of a function in a separate buffer: `gd`. This works not just on your own functions, but for all functions from all R packages.
 
-View a dataframe in Visidata: `\dv` while cursor is on the name of the dataframe.
+View a dataframe in Visidata: `\dv` while the cursor is on the name of the dataframe.
 
-View the summary of a dataframe in Visidata: `\ds` while cursor is on the name of the dataframe. The sample `Rprofile` also includes a `data_summary` function which opens the summary as an interactive table in a browser window. Either of these can be used as a variable explorer.
+View the summary of a dataframe in Visidata: `\ds` while the cursor is on the name of the dataframe. The sample `Rprofile` also includes a `data_summary` function which opens the summary as an interactive table in a browser window. Either of these can be used as a more advanced variable explorer than the built in Object Browser.
 
 Glimpse data (in the R console): `\dg` while cursor is on the name of the dataframe.
 
