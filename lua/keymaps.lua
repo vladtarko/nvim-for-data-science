@@ -22,7 +22,7 @@ vim.keymap.set(
 	"n",
 	"<leader>?",
 	function() vim.diagnostic.open_float(nil, { focus = false }) end,
-	{ desc = "Show diagnostic in popup" }
+	{ desc = "Show diagnostic in pop-up" }
 )
 
 vim.keymap.set("n", "<leader>dd", "<cmd>TodoTelescope buf=0<CR>", { desc = "List TODOs, NOTEs, TESTs, etc." })
@@ -73,8 +73,8 @@ function SpellCheck()
 		},
 	}))
 end
-vim.keymap.set("n", "<leader>s", SpellCheck, { desc = "[S]pelling suggestions" })
-vim.keymap.set("i", "<C-.>", SpellCheck, { desc = "[S]pelling suggestions" })
+vim.keymap.set("n", "<leader>s", SpellCheck, { desc = "[s]pelling suggestions" })
+vim.keymap.set("i", "<C-.>", SpellCheck, { desc = "[s]pelling suggestions" })
 
 -- SECTION: WHICH-KEY --------------------------------------------------------------------------
 
@@ -88,9 +88,10 @@ vim.keymap.set(
 -- define labels for groups
 require("which-key").add({
 	mode = { "n", "v" },
-	{ "<leader>c", group = "[C]ode" },
-	{ "<leader>d", group = "[D]ocument" },
-	{ "<leader>w", group = "[W]orkspace" },
+	{ "<leader>c", group = "[c]ode" },
+	{ "<leader>d", group = "[d]ocument" },
+	{ "<leader>w", group = "[w]orkspace" },
+	{ "<leader>r", group = "Find and [r]eplace" },
 })
 
 -- SECTION: WIN-SHIFT -- move windows/panes ------------------------------------------------------
@@ -137,6 +138,36 @@ vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result" })
 
 -- clear highlighting after search
 vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>", { desc = "Stop search [h]ighlight" })
+
+-- find/replace in current file
+vim.keymap.set(
+	"n",
+	"<leader>rf",
+	function() require("grug-far").open({ prefills = { paths = vim.fn.expand("%") } }) end,
+	{ desc = "grug: Find/replace in current [f]ile" }
+)
+
+-- find/replace within current selection
+vim.keymap.set(
+	{ "n", "x" },
+	"<leader>rs",
+	function() require("grug-far").open({ visualSelectionUsage = "operate-within-range" }) end,
+	{ desc = "grug: Find/replace within [s]election" }
+)
+
+vim.keymap.set(
+	{ "n", "x" },
+	"<leader>rw",
+	function() require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } }) end,
+	{ desc = "grug: Find/replace selected [w]ord" }
+)
+
+vim.keymap.set(
+	{ "n", "x" },
+	"<leader>rp",
+	function() require("grug-far").open({}) end,
+	{ desc = "grug: Find/replace in entire [p]roject" }
+)
 
 -- SECTION: HARPOON ----------------------------------------------------------------------------
 
@@ -258,25 +289,24 @@ vim.api.nvim_create_autocmd("FileType", {
 				desc = "[g]limpse data frame",
 			}
 		)
+		require("which-key").add({
+			-- buffer = true,
+			mode = { "n", "v" },
+			{ "<localleader>b", group = "[B]etween marks" },
+			{ "<localleader>c", group = "[C]hunks" },
+			{ "<localleader>d", group = "[D]ata" },
+			{ "<localleader>f", group = "[F]unctions" },
+			{ "<localleader>g", group = "[G]oto" },
+			{ "<localleader>i", group = "[I]ron REPL" },
+			{ "<localleader>k", group = "[K]nit" },
+			{ "<localleader>p", group = "[P]aragraph" },
+			{ "<localleader>q", group = "[Q]uarto" },
+			{ "<localleader>r", group = "[R] general" },
+			{ "<localleader>s", group = "[S]plit or [S]end" },
+			{ "<localleader>t", group = "[T]erminal" },
+			{ "<localleader>v", group = "[V]iew" },
+		})
 	end,
-})
-
-require("which-key").add({
-	-- buffer = true,
-	mode = { "n", "v" },
-	{ "<localleader>b", group = "[B]etween marks" },
-	{ "<localleader>c", group = "[C]hunks" },
-	{ "<localleader>d", group = "[D]ata" },
-	{ "<localleader>f", group = "[F]unctions" },
-	{ "<localleader>g", group = "[G]oto" },
-	{ "<localleader>i", group = "[I]ron REPL" },
-	{ "<localleader>k", group = "[K]nit" },
-	{ "<localleader>p", group = "[P]aragraph" },
-	{ "<localleader>q", group = "[Q]uarto" },
-	{ "<localleader>r", group = "[R] general" },
-	{ "<localleader>s", group = "[S]plit or [S]end" },
-	{ "<localleader>t", group = "[T]erminal" },
-	{ "<localleader>v", group = "[V]iew" },
 })
 
 -- SECTION: LSP stuff --------------------------------------------------------------------------------

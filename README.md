@@ -1,12 +1,12 @@
-# Set up NVIM for data science
+# Set up Neovim for data science
 
-This sets up NVIM for use with, primarily R, but also Python and Julia. Also for writing in markdown.
+This sets up Neovim for use with, primarily R, but also Python and Julia. Also for writing in markdown.
 
 # Install
 
 Clone the repo, or copy its contents, to your own `~/.config/nvim` folder.
 
-Open NVIM and let it install all the plugins.
+Open Neovim and let it install all the plugins.
 
 NOTE: The image support for markdown files is set up for the kitty terminal using imagemagick. The configuration for the "image.nvim" plugin is in the file `4-markdown.lua`. You need to have imagemagick installed on your system for this to work.
 
@@ -31,13 +31,13 @@ NOTE: The image support for markdown files is set up for the kitty terminal usin
 `{languageserver}`, `{collapse}`, `{rio}`, `{httpgd}` [optional], `{reactable}` [optional], `{colorout}` [optional]
 
 
-# Setting up Visidata for use from inside NVIM
+# Setting up Visidata for use from inside Neovim
 
 Visidata (vd) is a powerful terminal-based spreadsheets program. 
 
 1. Install Visidata: <https://www.visidata.org/install/>
 2. [optional] Choose a better looking theme for Visidata: copy the file `visidata/config.py` to your own `~/.config/visidata/config.py`. (You'll probably have to make the folder `.config/visidata`.)
-3. Add the functions `vd_view()` and `vd_summary()` from the Rprofile file to your own `.Rprofile`. NVIM is set up to use these functions for specific keybindings (see below).
+3. Add the functions `vd_view()` and `vd_summary()` from the Rprofile file to your own `.Rprofile`. Neovim is set up to use these functions for specific keybindings (see below).
 4. Set the variable `.my_terminal` inside your `.Rprofile` to be the terminal of your choice. It is currently set to kitty new tab.
 
 This allows you to have a nice terminal viewer for the R dataframes, and also to generate a quick summary of a dataframe (also useful as a variable explorer, if you have data with many variables). 
@@ -45,11 +45,11 @@ This allows you to have a nice terminal viewer for the R dataframes, and also to
 
 # Use
 
-Open an R file (or an Rmd or quarto file) with NVIM. 
+Open an R file (or an Rmd or quarto file) with Neovim. 
 
 Start up the R session: `\rf`.
 
-Set the current directory to the directory of the current file: `\rd` (This is only necessary if you've opened the file from a different location, and you want to import data or source files using relative paths. If you open NVIM from the root of your project's directory, the directory will already be set properly.)
+Set the current directory to the directory of the current file: `\rd` (This is only necessary if you've opened the file from a different location, and you want to import data or source files using relative paths. If you open Neovim from the root of your project's directory, the directory will already be set properly.)
 
 Send commands from the R script to the R console with `<enter>` in Normal/Visual modes or with `<C-enter>` in insert mode. 
 
