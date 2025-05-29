@@ -1,15 +1,20 @@
 return {
 	"godlygeek/tabular",
 	"preservim/vim-markdown",
-	"junegunn/goyo.vim",
+
+	-- zen mode, centered layout
+	-- "junegunn/goyo.vim",
+	-- "folke/zen-mode.nvim",
 	"shortcuts/no-neck-pain.nvim",
+
 	-- spelling errors displayed as diagnostics
 	{
 		"ravibrock/spellwarn.nvim",
 		event = "VeryLazy",
 		config = true,
 	},
-	-- "folke/zen-mode.nvim",
+
+	-- soft wraps for specific file types
 	{
 		"andrewferrier/wrapping.nvim",
 		opts = {
@@ -25,14 +30,16 @@ return {
 				-- add other filetypes as needed
 			},
 			create_keymaps = false,
+			notify_on_switch = false,
 		},
 	},
 
+	-- fancy look for markdown files in normal mode
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
-		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" }, -- if you use standalone mini plugins
-		-- dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' },
+		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
+		-- dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
 		opts = {
@@ -44,8 +51,30 @@ return {
 		},
 	},
 
-	-- Pandoc
+	-- -- Pandoc
 	-- "vim-pandoc/vim-pandoc",
-	-- -- Pandoc syntax
+	-- -- Pandoc syntax (more trouble than it's worth)
 	-- "vim-pandoc/vim-pandoc-syntax",
+
+	-- for image support
+	-- imagemagick needs to be installed on your system
+	-- lazy.nvim
+	{
+		"folke/snacks.nvim",
+		---@type snacks.Config
+		opts = {
+			image = {
+				-- Use Inkscape for SVG conversion
+				magick_args = {
+					svg = function(input, output)
+						return {
+							"magick",
+							input,
+							output,
+						}
+					end,
+				},
+			},
+		},
+	},
 }

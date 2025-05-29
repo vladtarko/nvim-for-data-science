@@ -8,7 +8,30 @@ Clone the repo, or copy its contents, to your own `~/.config/nvim` folder.
 
 Open NVIM and let it install all the plugins.
 
-# Using Visidata from NVIM
+NOTE: The image support for markdown files is set up for the kitty terminal using imagemagick. The configuration for the "image.nvim" plugin is in the file `4-markdown.lua`. You need to have imagemagick installed on your system for this to work.
+
+# Dependencies
+
+## System level
+
+`R` programming language
+
+`quarto` [optional]
+
+`air` R formatter [optional]
+
+`stylua` lua formatter (for the nvim config) [optional]
+
+`imagemagick` for image support inside markdown files [optional]
+
+`vd` Visidata terminal spreadsheets program
+
+## R packages
+
+`{languageserver}`, `{collapse}`, `{rio}`, `{httpgd}` [optional], `{reactable}` [optional], `{colorout}` [optional]
+
+
+# Setting up Visidata for use from inside NVIM
 
 Visidata (vd) is a powerful terminal-based spreadsheets program. 
 
@@ -18,6 +41,7 @@ Visidata (vd) is a powerful terminal-based spreadsheets program.
 4. Set the variable `.my_terminal` inside your `.Rprofile` to be the terminal of your choice. It is currently set to kitty new tab.
 
 This allows you to have a nice terminal viewer for the R dataframes, and also to generate a quick summary of a dataframe (also useful as a variable explorer, if you have data with many variables). 
+
 
 # Use
 
@@ -29,13 +53,13 @@ Set the current directory to the directory of the current file: `\rd` (This is o
 
 Send commands from the R script to the R console with `<enter>` in Normal/Visual modes or with `<C-enter>` in insert mode. 
 
-The base-R pipe: `<C-S-m`. 
+The base-R pipe: `<C-S-m>`. 
 
 The assignment operators: `<-` is `<C-S-,>` and `->` is `<C-S-.>`. 
 
 Even if you close the console pane (`<C-q>`), the R console will still be running. You can always get it back with `\rf`. You can continue to send commands to the console even when it's not visible. To actually quit the R session: `\rq` (does not save the environment).
 
-Send a command from the script, and post the output of the command as a comment inside the script: `\o`. If you want to do this multiple times, use the undo (`u`) after each run. (The `\o` command will not create new R objects.)
+Send a command from the script, and post the output of the command as a comment inside the script: `\o`. In Insert mode it is `<C-S-enter>`. If you want to do this multiple times, use the undo (`u`) after each run. (An important limitation is that this command will not create new R objects.)
 
 Move the console to its own tab, such that you have the full screen for your script, and also the full screen for the console: while your cursor is in the terminal, normal mode, `<C-w>T` (the `<C-w>` shortcut is the general opening for all window management actions). To quickly switch between the console tab and the scripts tab: `<C-t>`. List all the tabs: `<space-t>` in Telescope. 
 
@@ -47,7 +71,7 @@ Use `<C-arrows>` to move between script pane, console pane, file explorer, and o
 
 Get quick help: `K` while cursor is on the name an R function. 
 
-Open the full documentation for a function in its own buffer: `\rh` while cursor is on the name an R function.
+Open the full documentation for a function in its own buffer: `F1` while cursor is on the name an R function.
 
 For functions from packages, the documentation is available only after loading the package.
 

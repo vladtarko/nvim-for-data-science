@@ -2,7 +2,10 @@
 
 -- save in insert mode and normal mode
 vim.keymap.set("n", "<C-s>", ":w<CR>")
-vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>a")
+vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>gi")
+
+-- undo in insert mode
+vim.keymap.set("i", "<C-z>", "<Esc>ui")
 
 -- Esc toggles normal/insert modes
 vim.keymap.set("n", "<Esc>", "a")
@@ -10,6 +13,9 @@ vim.keymap.set("n", "<Esc>", "a")
 -- exit with C-q
 vim.keymap.set("n", "<C-q>", ":q<CR>")
 vim.keymap.set("i", "<C-q>", "<Esc>:q<CR>")
+
+-- show messages
+vim.keymap.set("n", "<leader>m", ":Messages messages<CR>", { desc = "Show [m]essages" })
 
 -- show diagnostic in a pop-up of error/warning
 vim.keymap.set(
@@ -19,7 +25,7 @@ vim.keymap.set(
 	{ desc = "Show diagnostic in popup" }
 )
 
-vim.keymap.set("n", "<leader>dd", "<cmd>TodoTelescope buf=0<cr>", { desc = "List TODOs" })
+vim.keymap.set("n", "<leader>dd", "<cmd>TodoTelescope buf=0<CR>", { desc = "List TODOs, NOTEs, TESTs, etc." })
 
 -- SECTION: CLIPBOARD ----------------------------------------------------------------------------
 
@@ -37,6 +43,7 @@ vim.keymap.set("x", "p", '"_dP', { noremap = true, silent = true })
 
 -- C-A selects all, copies to clipboars, and returns to original position
 vim.keymap.set("n", "<C-a>", "mzggVGy`z", { noremap = true, silent = true })
+vim.keymap.set("i", "<C-a>", "<Esc>mzggVGy`za", { noremap = true, silent = true })
 
 -- SECTION: TELESCOPE ---------------------------------------------------------------------------
 
@@ -45,8 +52,9 @@ vim.keymap.set("n", "<leader>o", require("telescope.builtin").oldfiles, { desc =
 vim.keymap.set("n", "<leader>g", require("telescope.builtin").live_grep, { desc = "[g]rep: Search text in files" })
 vim.keymap.set("n", "<leader>b", require("telescope.builtin").buffers, { desc = "List [b]uffers" })
 vim.keymap.set("n", "<leader>t", require("telescope-tabs").list_tabs, { desc = "List vim [t]abs" })
-vim.keymap.set("n", "<C-t>", require("telescope-tabs").go_to_previous, { desc = "Previous Tab" })
-vim.keymap.set("n", "<leader>H", require("telescope.builtin").help_tags, { desc = "[H]elp files" })
+vim.keymap.set("n", "<C-t>", require("telescope-tabs").go_to_previous, { desc = "Previous tab" })
+vim.keymap.set("n", "<leader>H", require("telescope.builtin").help_tags, { desc = "Vim [H]elp files" })
+vim.keymap.set("n", "<leader>D", ":Telescope diagnostics<CR>", { desc = "List [D]iagnostics" })
 
 vim.keymap.set("n", "<leader>/", function()
 	-- You can pass additional configuration to telescope to change theme, layout, etc.
@@ -77,6 +85,7 @@ vim.keymap.set(
 	{ desc = "Buffer local [k]eymaps" }
 )
 
+-- define labels for groups
 require("which-key").add({
 	mode = { "n", "v" },
 	{ "<localleader>a", group = "[A]ll" },
@@ -149,21 +158,52 @@ vim.keymap.set("n", "<M-7>", function() require("harpoon.ui").nav_file(7) end)
 vim.keymap.set("n", "<leader>do", "<cmd>AerialToggle!<CR>", { desc = "Toggle [D]ocument [O]utline" })
 
 -- toggle centered view
-vim.keymap.set("n", "<leader>z", "<cmd>NoNeckPain<CR>", { desc = "[Z]en mode: Centered view" })
+vim.keymap.set("n", "<leader>z", "<cmd>NoNeckPain<CR>", { desc = "[z]en mode: Centered view" })
 
 -- make up/down arrow keys work well with long wrapped lines
 -- (adds flicker :/)
-vim.api.nvim_set_keymap("i", "<Up>", "<C-o>gk", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<Down>", "<C-o>gj", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Up>", "gk", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Down>", "gj", { noremap = true, silent = true })
+vim.keymap.set("i", "<Up>", "<C-o>gk")
+vim.keymap.set("i", "<Down>", "<C-o>gj")
+vim.keymap.set("n", "<Up>", "gk")
+vim.keymap.set("n", "<Down>", "gj")
 
--- autocomplete parantheses and quotations
--- vim.api.nvim_set_keymap("i", '"', '""<left>', { noremap = true })
--- vim.api.nvim_set_keymap("i", "'", "''<left>", { noremap = true })
--- vim.api.nvim_set_keymap("i", "(", "()<left>", { noremap = true })
--- vim.api.nvim_set_keymap("i", "[", "[]<left>", { noremap = true })
--- vim.api.nvim_set_keymap("i", "{", "{}<left>", { noremap = true })
+-- convert to PDF using pandoc
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function()
+		vim.keymap.set(
+			"n",
+			"<leader>dp",
+			":!pandoc --citeproc % -o %:r.pdf<CR>",
+			{ buffer = true, desc = "Pandoc: Convert Markdown to [P]DF" }
+		)
+	end,
+})
+
+-- convert to Word using pandoc
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function()
+		vim.keymap.set(
+			"n",
+			"<leader>dw",
+			":!pandoc --citeproc % -o %:r.docx<CR>",
+			{ buffer = true, desc = "Pandoc: Convert Markdown to [W]ord" }
+		)
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function()
+		vim.keymap.set(
+			"n",
+			"<leader>db",
+			":!pandoc --citeproc -t beamer % -o %:r.pdf<CR>",
+			{ buffer = true, desc = "Pandoc: Convert Markdown to [B]eamer presentation" }
+		)
+	end,
+})
 
 -- SECTION: R shortcuts ---------------------------------------------------------------------------------------
 
@@ -171,20 +211,16 @@ vim.api.nvim_set_keymap("n", "<Down>", "gj", { noremap = true, silent = true })
 -- https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
 
 -- send code to the R console
-vim.keymap.set("i", "<C-Enter>", '<Esc>:call SendLineToR("down")<CR>0i')
-vim.keymap.set("i", "<C-S-Enter>", "<Esc>:call SendLineToRAndInsertOutput()<CR>0i")
-vim.keymap.set("v", "<Enter>", "<Plug>RDSendSelection")
-vim.keymap.set("n", "<Enter>", "<Plug>RDSendLine")
-vim.keymap.set("n", "<C-Enter>", "<Plug>RDSendLine")
+vim.api.nvim_buf_set_keymap(0, "i", "<C-enter>", "<Esc><Plug>RDSendLine i", { noremap = true })
+vim.api.nvim_buf_set_keymap(0, "i", "<C-S-enter>", "<Esc><Plug>RInsertLineOutput i", { noremap = true })
 
-vim.keymap.set("n", "<C-S-l>", ":call RClearConsole()<CR>")
+-- clear console
+-- vim.api.nvim_buf_set_keymap(0, "n", "<C-l>", "<Plug>RClearConsole", { noremap = true })
+-- vim.api.nvim_buf_set_keymap(0, "t", "<C-l>", "<Esc><Plug>RClearConsole", { noremap = true })
 
 -- help
-vim.keymap.set("i", "<F1>", '<Esc>:call RAction("help")<CR>i')
-vim.keymap.set("n", "<F1>", ':call RAction("help")<CR>')
-
--- object browser
-vim.keymap.set("i", "<C-S-o>", "<Esc>:call RObjBrowser()<CR>i")
+vim.api.nvim_buf_set_keymap(0, "n", "<F1>", "<Plug>RHelp", { noremap = true })
+vim.api.nvim_buf_set_keymap(0, "i", "<F1>", "<Esc><Plug>RHelp", { noremap = true })
 
 -- pipe and assignment shortcuts
 vim.keymap.set("i", "<C-S-m>", " |> ")
@@ -239,9 +275,9 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 require("which-key").add({
-	buffer = true,
+	-- buffer = true,
 	mode = { "n", "v" },
-	{ "<localleader>a", group = "[A]ll" },
+	{ "<localleader>a", group = "[A]ll: run whole files" },
 	{ "<localleader>b", group = "[B]etween marks" },
 	{ "<localleader>c", group = "[C]hunks" },
 	{ "<localleader>d", group = "[D]ata" },

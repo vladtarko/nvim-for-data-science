@@ -33,7 +33,6 @@ return {
 					v = "vd_view",
 				},
 				disable_cmds = {
-					"RClearConsole",
 					"RCustomStart",
 					"RSPlot",
 					"RSaveClose",
