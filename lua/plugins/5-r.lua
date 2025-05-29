@@ -17,6 +17,34 @@ return {
 					on_filetype = function()
 						vim.api.nvim_buf_set_keymap(0, "n", "<Enter>", "<Plug>RDSendLine", {})
 						vim.api.nvim_buf_set_keymap(0, "v", "<Enter>", "<Plug>RSendSelection", {})
+
+						-- send code to the R console
+						vim.api.nvim_buf_set_keymap(0, "i", "<C-enter>", "<Esc><Plug>RDSendLine i", {})
+						vim.api.nvim_buf_set_keymap(0, "i", "<C-S-enter>", "<Esc><Plug>RInsertLineOutput i", {})
+
+						-- clear console (doesn't work)
+						vim.api.nvim_buf_set_keymap(0, "n", "<C-l>", "<Plug>RClearConsole", { desc = "Clear console" })
+						-- vim.api.nvim_buf_set_keymap(0, "t", "<C-l>", "<Esc><Plug>RClearConsole", { })
+
+						-- help
+						vim.api.nvim_buf_set_keymap(0, "n", "<F1>", "<Plug>RHelp", {})
+						vim.api.nvim_buf_set_keymap(0, "i", "<F1>", "<Esc><Plug>RHelp", {})
+
+						-- whole files
+						vim.api.nvim_buf_set_keymap(
+							0,
+							"n",
+							"<localleader>sf",
+							"<Plug>RSendFile",
+							{ desc = "Send the entire [f]ile to R" }
+						)
+						vim.api.nvim_buf_set_keymap(
+							0,
+							"n",
+							"<localleader>sb",
+							"<Plug>RShowRout",
+							{ desc = "[B]atch run the entire file and show output in new tab" }
+						)
 					end,
 				},
 				pdfviewer = "evince",
@@ -33,6 +61,7 @@ return {
 					v = "vd_view",
 				},
 				disable_cmds = {
+					"RUndebug",
 					"RCustomStart",
 					"RSPlot",
 					"RSaveClose",

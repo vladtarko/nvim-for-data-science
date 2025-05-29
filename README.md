@@ -61,15 +61,21 @@ Even if you close the console pane (`<C-q>`), the R console will still be runnin
 
 Send a command from the script, and post the output of the command as a comment inside the script: `\o`. In Insert mode it is `<C-S-enter>`. If you want to do this multiple times, use the undo (`u`) after each run. (An important limitation is that this command will not create new R objects.)
 
-Move the console to its own tab, such that you have the full screen for your script, and also the full screen for the console: while your cursor is in the terminal, normal mode, `<C-w>T` (the `<C-w>` shortcut is the general opening for all window management actions). To quickly switch between the console tab and the scripts tab: `<C-t>`. List all the tabs: `<space-t>` in Telescope. 
+Move the console to its own tab, such that you have the full screen for your script, and also the full screen for the console: while your cursor is in the terminal, normal mode, `<C-w>T` (the `<C-w>` shortcut is the general opening for all window management actions). To quickly switch between the console tab and the scripts tab: `<C-t>`. List all the tabs in Telescope: `<space-t>`. 
 
 Toggle the file explorer: `<C-n>`
 
-Toggle the Object Browser: `\ro`. This can also be used to see the list of loaded packages. Actions inside the Object Browser (these call R functions for the object under the cursor): `s` summary, `v` Visidata view, `c` class, `g` glimpse, `h` head, `t` tail, `u` unique.
+Toggle the Object Browser: `\ro`. Inside the Object Browser:
+
+- `<enter>` on a dataframe shows its variables and the variable labels (similar to the variable explorer in Stata). 
+- `<enter>` opens lists in the same way. 
+- Search among objects, variables, and variable labels: `/`
+- Actions inside the Object Browser (these call R functions for the object under the cursor, be it dataframe, variable, list, etc.): `s` summary, `v` Visidata view, `c` class, `g` glimpse, `h` head, `t` tail, `u` unique. 
+- The Object Browser can also be used to see the list of loaded packages. `<enter>` on a package shows all the functions inside the package. `F1` on a function opens the help documentation in a new buffer. 
 
 Use `<C-arrows>` to move between script pane, console pane, file explorer, and object browser.
 
-Get quick help: `K` while cursor is on the name an R function. 
+Get quick help in a pop-up: `K` while cursor is on the name an R function. 
 
 Open the full documentation for a function in its own buffer: `F1` while cursor is on the name an R function.
 
@@ -77,9 +83,11 @@ For functions from packages, the documentation is available only after loading t
 
 Show diagnostics for warnings and errors caught by the LSP: `<space>?`
 
+Open the definition of a function in a separate buffer: `gd`
+
 View a dataframe in Visidata: `\dv` while cursor is on the name of the dataframe.
 
-View the summary of a dataframe in Visidata: `\ds` while cursor is on the name of the dataframe.
+View the summary of a dataframe in Visidata: `\ds` while cursor is on the name of the dataframe. The sample `Rprofile` also includes a `data_summary` function which opens the summary as an interactive table in a browser window. Either of these can be used as a variable explorer.
 
 Glimpse data (in the R console): `\dg` while cursor is on the name of the dataframe.
 
@@ -144,6 +152,6 @@ Another option would be to install the "molten" plugin.
 
 # Customizing it to your own needs
 
-All the keybindings are in the file `keybindings.lua`, and organized into sections by different categories.
+Most keybindings are in the file `keybindings.lua`, and organized into sections by different categories. Some keybindings related to R are in the `5-r.lua` file.
 
 If you dislike the automatic R formatter on save, comment out the line `r = { "air" }` in the `7-lsp-general.lua` file (part of the config for the "conform.nvim" plugin).

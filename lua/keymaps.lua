@@ -88,7 +88,6 @@ vim.keymap.set(
 -- define labels for groups
 require("which-key").add({
 	mode = { "n", "v" },
-	{ "<localleader>a", group = "[A]ll" },
 	{ "<leader>c", group = "[C]ode" },
 	{ "<leader>d", group = "[D]ocument" },
 	{ "<leader>w", group = "[W]orkspace" },
@@ -210,18 +209,6 @@ vim.api.nvim_create_autocmd("FileType", {
 -- note: some terminals require special customization to allow Ctrl-Shift
 -- https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
 
--- send code to the R console
-vim.api.nvim_buf_set_keymap(0, "i", "<C-enter>", "<Esc><Plug>RDSendLine i", { noremap = true })
-vim.api.nvim_buf_set_keymap(0, "i", "<C-S-enter>", "<Esc><Plug>RInsertLineOutput i", { noremap = true })
-
--- clear console
--- vim.api.nvim_buf_set_keymap(0, "n", "<C-l>", "<Plug>RClearConsole", { noremap = true })
--- vim.api.nvim_buf_set_keymap(0, "t", "<C-l>", "<Esc><Plug>RClearConsole", { noremap = true })
-
--- help
-vim.api.nvim_buf_set_keymap(0, "n", "<F1>", "<Plug>RHelp", { noremap = true })
-vim.api.nvim_buf_set_keymap(0, "i", "<F1>", "<Esc><Plug>RHelp", { noremap = true })
-
 -- pipe and assignment shortcuts
 vim.keymap.set("i", "<C-S-m>", " |> ")
 vim.keymap.set("i", "<C-S-,>", " <- ")
@@ -246,7 +233,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "r",
 	callback = function()
 		-- style paragraph
-		vim.keymap.set("n", "<localleader>F", "vip :RFormat<CR>", { desc = "[F]ormat paragraph" })
+		vim.keymap.set("n", "<localleader>pf", "vip :RFormat<CR>", { desc = "[F]ormat paragraph" })
 
 		vim.keymap.set("n", "<localleader>dv", vd_view, {
 			noremap = true,
@@ -277,7 +264,6 @@ vim.api.nvim_create_autocmd("FileType", {
 require("which-key").add({
 	-- buffer = true,
 	mode = { "n", "v" },
-	{ "<localleader>a", group = "[A]ll: run whole files" },
 	{ "<localleader>b", group = "[B]etween marks" },
 	{ "<localleader>c", group = "[C]hunks" },
 	{ "<localleader>d", group = "[D]ata" },
