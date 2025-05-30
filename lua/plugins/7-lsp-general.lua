@@ -10,12 +10,12 @@ return {
 		},
 		opts = {
 			ensure_installed = {
-				"r_language_server",
+				-- "r_language_server",
 				"marksman",
 				"rust_analyzer",
 				"pyright",
 				"lua_ls",
-				"air",
+				-- "air",
 			},
 			automatic_installation = true,
 		},
@@ -40,24 +40,24 @@ return {
 					-- 		capabilities = capabilities,
 					-- 	})
 					-- end,
-					["air"] = function()
-						require("lspconfig").air.setup({
-							on_attach = function(_, bufnr)
-								vim.api.nvim_create_autocmd("BufWritePre", {
-									buffer = bufnr,
-									callback = function() vim.lsp.buf.format() end,
-								})
-							end,
-						})
-					end,
-					["r_language_server"] = function()
-						require("lspconfig").r_language_server.setup({
-							on_attach = function(client, _)
-								client.server_capabilities.documentFormattingProvider = false
-								client.server_capabilities.documentRangeFormattingProvider = false
-							end,
-						})
-					end,
+					-- ["air"] = function()
+					-- 	require("lspconfig").air.setup({
+					-- 		on_attach = function(_, bufnr)
+					-- 			vim.api.nvim_create_autocmd("BufWritePre", {
+					-- 				buffer = bufnr,
+					-- 				callback = function() vim.lsp.buf.format() end,
+					-- 			})
+					-- 		end,
+					-- 	})
+					-- end,
+					-- ["r_language_server"] = function()
+					-- 	require("lspconfig").r_language_server.setup({
+					-- 		on_attach = function(client, _)
+					-- 			client.server_capabilities.documentFormattingProvider = false
+					-- 			client.server_capabilities.documentRangeFormattingProvider = false
+					-- 		end,
+					-- 	})
+					-- end,
 				},
 			})
 		end,
@@ -72,9 +72,9 @@ return {
 		opts = {
 			formatters_by_ft = {
 				lua = { "stylua" },
-				quarto = { "injected" },
-				rmd = { "injected" },
-				r = { "air" },
+				-- quarto = { "injected" },
+				-- rmd = { "injected" },
+				-- r = { "air" },
 			},
 			formatters = {
 				stylua = {

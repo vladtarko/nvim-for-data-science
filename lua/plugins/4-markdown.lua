@@ -1,10 +1,10 @@
 return {
+	-- align helper
 	"godlygeek/tabular",
+
 	"preservim/vim-markdown",
 
 	-- zen mode, centered layout
-	-- "junegunn/goyo.vim",
-	-- "folke/zen-mode.nvim",
 	"shortcuts/no-neck-pain.nvim",
 
 	-- spelling errors displayed as diagnostics
@@ -58,22 +58,15 @@ return {
 
 	-- for image support
 	-- imagemagick needs to be installed on your system
-	-- lazy.nvim
 	{
 		"folke/snacks.nvim",
 		---@type snacks.Config
 		opts = {
 			image = {
-				-- Use Inkscape for SVG conversion
 				magick_args = {
-					svg = function(input, output)
-						return {
-							"magick",
-							input,
-							output,
-						}
-					end,
+					svg = function(input, output) return { "magick", input, output } end,
 				},
+				math = { enabled = false },
 			},
 		},
 	},

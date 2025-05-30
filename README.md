@@ -24,6 +24,8 @@ NOTE: The image support for markdown files is set up for the kitty terminal usin
 
 `imagemagick` for image support inside markdown files [optional]
 
+`ripgrep` (fast grep), `fdfind` (fast file find), `bat` (better file preview)
+
 `vd` Visidata terminal spreadsheets program
 
 ## R packages

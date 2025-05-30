@@ -45,6 +45,20 @@ vim.keymap.set("x", "p", '"_dP', { noremap = true, silent = true })
 vim.keymap.set("n", "<C-a>", "mzggVGy`z", { noremap = true, silent = true })
 vim.keymap.set("i", "<C-a>", "<Esc>mzggVGy`za", { noremap = true, silent = true })
 
+-- SECTION: ALIGN -------------------------------------------------------------------------------
+
+vim.keymap.set("v", "<leader>a=", ":Tabularize /=<CR>", { desc = "Align to =" })
+vim.keymap.set("v", "<leader>a|", ":Tabularize /|<CR>", { desc = "Align to =" })
+vim.keymap.set("v", "<leader>a:", ":Tabularize /:\zs<CR>", { desc = "Align to :" })
+vim.keymap.set("v", "<leader>a<", ":Tabularize /<-<CR>", { desc = "Align to <-" })
+vim.keymap.set("v", "<leader>a,", ":Tabularize /,<CR>", { desc = "Align to ," })
+
+vim.keymap.set("n", "<leader>a=", "vip:Tabularize /=<CR>", { desc = "Align to =" })
+vim.keymap.set("n", "<leader>a|", "vip:Tabularize /|<CR>", { desc = "Align to |" })
+vim.keymap.set("n", "<leader>a:", "vip:Tabularize /:\zs<CR>", { desc = "Align to :" })
+vim.keymap.set("n", "<leader>a<", "vip:Tabularize /<-<CR>", { desc = "Align to <-" })
+vim.keymap.set("n", "<leader>a,", "vip:Tabularize /,<CR>", { desc = "Align to ," })
+
 -- SECTION: TELESCOPE ---------------------------------------------------------------------------
 
 vim.keymap.set("n", "<leader>f", require("telescope.builtin").find_files, { desc = "Find [f]iles" })
@@ -88,6 +102,7 @@ vim.keymap.set(
 -- define labels for groups
 require("which-key").add({
 	mode = { "n", "v" },
+	{ "<leader>a", group = "[a]lign" },
 	{ "<leader>c", group = "[c]ode" },
 	{ "<leader>d", group = "[d]ocument" },
 	{ "<leader>w", group = "[w]orkspace" },
@@ -144,7 +159,7 @@ vim.keymap.set(
 	"n",
 	"<leader>rf",
 	function() require("grug-far").open({ prefills = { paths = vim.fn.expand("%") } }) end,
-	{ desc = "grug: Find/replace in current [f]ile" }
+	{ desc = "Find/replace in current [f]ile" }
 )
 
 -- find/replace within current selection
@@ -152,21 +167,21 @@ vim.keymap.set(
 	{ "n", "x" },
 	"<leader>rs",
 	function() require("grug-far").open({ visualSelectionUsage = "operate-within-range" }) end,
-	{ desc = "grug: Find/replace within [s]election" }
+	{ desc = "Find/replace within [s]election" }
 )
 
 vim.keymap.set(
 	{ "n", "x" },
 	"<leader>rw",
 	function() require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } }) end,
-	{ desc = "grug: Find/replace selected [w]ord" }
+	{ desc = "Find/replace selected [w]ord" }
 )
 
 vim.keymap.set(
 	{ "n", "x" },
 	"<leader>rp",
 	function() require("grug-far").open({}) end,
-	{ desc = "grug: Find/replace in entire [p]roject" }
+	{ desc = "Find/replace in entire [p]roject" }
 )
 
 -- SECTION: HARPOON ----------------------------------------------------------------------------
