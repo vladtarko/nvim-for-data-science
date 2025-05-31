@@ -51,6 +51,25 @@ return {
 		},
 	},
 
+	{
+		"jalvesaq/zotcite",
+		dependencies = {
+			"nvim-telescope/telescope.nvim", -- if you want telescope integration
+			"nvim-treesitter/nvim-treesitter", -- optional but recommended
+		},
+		config = function() require("zotcite").setup({}) end,
+	},
+
+	{
+		"vpratz/zotcite-betterbibtex",
+	},
+
+	{
+		"jalvesaq/cmp-zotcite",
+		dependencies = { "jalvesaq/zotcite", "vpratz/zotcite-betterbibtex" }, -- ensure zotcite loads first
+		opts = {},
+	},
+
 	-- -- Pandoc
 	-- "vim-pandoc/vim-pandoc",
 	-- -- Pandoc syntax (more trouble than it's worth)
@@ -69,5 +88,33 @@ return {
 				math = { enabled = false },
 			},
 		},
+	},
+
+	{
+		"Thiago4532/mdmath.nvim",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+		},
+		opts = {
+			-- Filetypes that the plugin will be enabled by default.
+			filetypes = { "markdown", "rmd", "quarto" },
+			-- Color of the equation, can be a highlight group or a hex color.
+			foreground = "Normal", -- Examples: 'Normal', '#ff0000'
+			anticonceal = false, -- Set true to hide the text when the equation is under the cursor.
+			hide_on_insert = true, -- Hide the text when in the Insert Mode.
+			dynamic = true, -- Enable dynamic size for non-inline equations.
+			dynamic_scale = 0.5, -- Configure the scale of dynamic-rendered equations.
+			update_interval = 400, -- Interval between updates (milliseconds).
+			-- Internal scale of the equation images, increase to prevent blurry images when increasing terminal
+			-- font, high values may produce aliased images.
+			-- WARNING: This do not affect how the images are displayed, only how many pixels are used to render them.
+			--          See `dynamic_scale` to modify the displayed size.
+			internal_scale = 1.0,
+		},
+
+		-- The build is already done by default in lazy.nvim, so you don't need
+		-- the next line, but you can use the command `:MdMath build` to rebuild
+		-- if the build fails for some reason.
+		-- build = ':MdMath build'
 	},
 }
